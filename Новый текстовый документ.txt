@@ -1,0 +1,575 @@
+#include "colors.inc"
+#include "textures.inc"
+#declare Open_Angle = 90;
+#include "butt.pov"
+ 
+
+camera {
+    location <-15,20,70>
+    look_at <-20,20,-30>
+}
+
+light_source {<-15, 2, 50> White}
+light_source {<40, 20, 30> White} 
+light_source {<-37,20,5> White}
+
+background {NeonBlue}   
+
+plane {
+    y, -10
+    pigment {checker White,Black scale 3}
+}
+
+//бутылки
+object { Bottle(color Yellow)scale 0.5 translate <-0.7, 11, -12.5> }
+object { Bottle(color Violet)scale 0.5 translate <-3.9, 11, -12.5> }
+object { Bottle(color Blue)scale 0.5 translate <-7.2, 11, -12.5> }
+object { Bottle(color Green)scale 0.5 translate <-10.8, 11, -12.5> }   
+
+//каркас 
+union {
+    //стойка (нижний поддон)
+    box {
+    <1,-10,6>, <-30,-9,-15>
+    pigment {color Gray10}
+    }
+    
+    //задняя стенка
+    box {
+        <2,-9,-15>, <-31,50,-16>
+        pigment {color Gray10}
+    }
+    
+    //левая нижняя стенка 
+    box {
+        <1,-9,-15>, <2,10,7>
+        pigment {color Gray10}
+    } 
+        
+    //правая нижняя стенка
+    box {
+        <-30,-9,-15>, <-31,10,7>
+        pigment {color Gray10}
+    }
+    
+    //левая верхняя стенка
+    box {
+        <1,11,-15>, <2,50,-10>
+        pigment {color Gray10}
+    }  
+    
+    //правая верхняя стенка
+    box {
+        <-30,11,-15>, <-31,50,-10>
+        pigment {color Gray10}
+    }
+}    
+
+//нижний шкаф
+union {  
+    box {
+        <2,0,-15>, <-31,1,7>
+        pigment {color Gray10}
+    }
+  
+    box {
+        <2.3,10,-16>, <-31.3,11,7.5>
+        pigment {color Gray10}
+    }
+    
+    union {                                                            
+        box {
+            <1,-9,6.2>, <-9.9,10,7.2>
+            pigment {color Grey}
+        }
+        
+        sphere {
+            <-8.5,8.5,7.1>, 0.4
+            pigment {color Gray}
+        } 
+        
+        sphere {
+            <-8.5,8.5,7.36>, 0.15
+            pigment {color Black}
+        }
+        
+        translate <-1,0,-7.2>
+        
+        rotate <0, Open_Angle * clock, 0>
+        
+        translate <1,0,7.2> 
+    } 
+    
+    union {
+        box {
+            <-10,-9,6.2>, <-20.9,10,7.2>
+            pigment {Grey}
+        }
+        
+        sphere {
+            <-11.5,8.5,7.1>, 0.4
+            pigment {color Gray50}
+        } 
+        
+        sphere {
+            <-11.5,8.5,7.36>, 0.15
+            pigment {color Black}
+        } 
+        
+        translate <20.9,0,-7.2>
+        
+        rotate <0, -Open_Angle * clock, 0>
+        
+        translate <-20.9,0,7.2>
+    }
+    
+    union {
+        box {
+            <-21,-9,6.2>, <-30,10,7.2>
+            pigment {color Grey}
+        } 
+        
+        sphere {
+            <-22.5,8.5,7.1>, 0.4
+            pigment {color Gray50}
+        }       
+        
+        sphere {
+            <-22.5,8.5,7.36>, 0.15
+            pigment {color Black}
+        } 
+        
+        translate <30,0,-7.2>
+            
+        rotate <0, -Open_Angle * clock, 0>
+            
+        translate <-30,0,7.2>   
+    }
+} 
+
+//крыша
+union {
+    box {
+        <2,50,-16>, <-31,51,7.5>
+        pigment {color Gray10}
+    }
+    
+    union {
+        box {
+            <2, 43, 7.5>, <-31, 50, 7.6> 
+            texture {
+                pigment {
+                    image_map {
+                        png "textures/love_coffee.png"
+                        interpolate 2
+                        once 
+                    }
+                    scale <-33, 7, 1>
+                    
+                    translate <2, 43, 0>
+                }
+                finish {
+                    ambient 1
+                    diffuse 0
+                }
+            }
+        }
+        
+        sphere {
+            <-16,45,7.35>, 0.4
+            pigment {color Gray50}
+        } 
+        
+        sphere {
+            <-16,45,7.6206>, 0.15
+            pigment {color Black}
+        }    
+    }
+    
+    box {
+        <1,50,-15>, <2,43,6.5>
+        pigment {color Gray10}
+    }
+    
+    box {
+        <-30,50,-15>, <-31,43,7.5>
+        pigment {color Gray10}
+    }
+    
+    box {
+        <2,43,-15>, <-30,44,7.5>
+        pigment {color Gray10}
+    }    
+}     
+
+//ниша в шкафу
+union {
+    //задняя стенка дерево
+    union {
+        box {
+            <1,10,-15>, <-15,50,-14.7>
+            pigment { DMFWood2 }
+        }
+         
+        box {
+            <3,-6,0.01>, <-2.5,-9.8,0.025>
+    
+            texture {
+                pigment {
+                    image_map {
+                        png "textures/lids.png"
+                        interpolate 2
+                        once
+                    }
+                    scale <5.5,3.8,1>
+                    translate <-2.5,-9.8,0>
+                }
+                finish { ambient 1 diffuse 0.5 }
+            }
+            translate <-9.5,32.5,-14.71>
+        }
+    
+    } 
+    
+    //верхняя утопленная полка 
+    box{
+        <2,37,-15>,<-13,38,-10>
+        pigment {color Gray10}
+    } 
+    
+    //левая утопленная стенка
+    box{
+        <0.5,11,-15>,<0.97,37,-10>
+        pigment {color Gray10}
+    }
+    
+    //правая утопленная стенка
+    box{
+        <-12.5,11,-15>,<-12.97,37,-10>
+        pigment {color Gray10}
+    }    
+    
+    //утопленный пол    
+    box{
+        <0.5,11,-15>,<-12.5,12,-10>
+        pigment {color Gray10}
+    }   
+    
+    //нижняя полка
+    box{
+        <0.5,21,-15>,<-12.5,22,-10>
+        pigment {color Gray10}
+    } 
+    
+    //укороченная полка
+    box{
+        <0.5,27,-15>,<-6,28,-10>
+        pigment {color Gray10}
+    }
+    
+    //перегородка верхняя левая
+    box{
+        <-2.5,28,-15>,<-3,37,-10>
+        pigment {color Gray10}
+    }           
+    
+    //перегородка по центру
+    box{
+        <-5.5,12,-15>,<-6,37,-10>
+        pigment {color Gray10}
+    } 
+    
+    //перегородка верхняя правая 
+    box{
+        <-9,27,-15>,<-9.5,37,-10>
+        pigment {color Gray10}
+    }  
+    
+    //перегородка нижняя правая
+    box{
+        <-9,12,-15>,<-9.5,21,-10>
+        pigment {color Gray10}
+    }
+    
+    //перегородка нижняя левая
+    box{
+        <-2.5,12,-15>,<-3,21,-10>
+        pigment {color Gray10}
+    }   
+    
+    //стенка для салфеток
+    union {
+        box{
+            <0.5,22,-11>,<-6,24,-10>
+            pigment { color Gray10 }
+        }
+    
+        // наклейка napkins.png
+        box {
+            <0,0,0>, <7,-2,0.01>
+    
+            texture {
+                pigment {
+                    image_map {
+                        png "textures/napkins.png"
+                        interpolate 2
+                        once
+                    }
+                    scale <7,-2,1>
+                }
+                finish { ambient 0.5 diffuse 0.5 }
+            }
+    
+            translate <-6,24,-9.99>
+        }
+    }                        
+    
+    //стенка для палочек 
+    union {
+        box{
+            <0.5,28,-11>,<-3,31,-10>
+            pigment { color Gray10 }
+        }
+    
+        box {
+            <0,0,0>, <3.5,-3,0.01>
+    
+            texture {
+                pigment {
+                    image_map {
+                        png "textures/sticks.png"
+                        interpolate 2
+                        once
+                    }
+                    scale <3.5,3,1>
+                    translate <0,-3,0>
+                }
+                finish { ambient 0.5 diffuse 0.5 }
+            }
+    
+            translate <-3,31,-9.99>
+        }
+    } 
+    
+    //стеклянная дверца
+    union { 
+        difference {
+    
+        // стекло
+        box {
+            <-12.5, 27.5, -10>, <-3.2, 37.5, -9.8>
+        }
+    
+        // квадратное отверстие
+        box {
+            <-3.5, 28.2, -11>,
+            <-5.3, 30.0, -8>
+        }
+    
+        pigment { rgbf <0.9, 0.95, 1.0, 0.8> }
+    
+        finish {
+            ambient 0.1
+            diffuse 0.1
+            specular 0.8
+            roughness 0.01
+            reflection 0.1
+        }
+    
+        interior { ior 1.5 }
+        }
+    
+        box {
+            <0, 0, 0>, <-2.4, -3, 0.01>
+            
+            texture {
+                pigment {
+                    image_map {
+                        png "textures/sugar.png"
+                        interpolate 2
+                        once
+                    }
+                    scale <-2.4, -3, 1>
+                }
+                finish { ambient 0.5 diffuse 0.5 }
+            }
+            translate <-3.2, 37.5, -9.79>
+        }
+    }
+        
+}     
+
+//шкафчик над кофемашиной
+union {
+    box {
+        <-19,32,-16>, <-30,33,5>
+        pigment {color Gray10}
+    }
+    
+    box {
+        <-30,32,-10>, <-31,44,5>
+        pigment {color Gray10}
+    }
+    
+    union {
+        box {
+            <-19.2, 33, 4>, <-30, 43, 5>
+            pigment {color Gray10}
+        }
+    
+        box {
+            <-7, -7, 0>, <7, 7, 0.01>
+            texture {
+                pigment {
+                    image_map {
+                        png "textures/podaroc.png"
+                        interpolate 2
+                        once 
+                    }
+                    translate <-0.5, -0.5, 0>
+                    scale <-7, 7, 1>
+                }
+                finish { ambient 0.5 diffuse 0.5 }
+            }
+            translate <-24.6, 38, 5.01>
+        }
+        
+        box {
+            <0, 0, 0>, <-6, 2.2, 0.01>
+            
+            texture {
+                pigment {
+                    image_map {
+                        png "textures/buyers.png"
+                        interpolate 2
+                        once 
+                    }
+                    scale <-6, 2.2, 1> 
+                }
+                finish { ambient 0.5 diffuse 0.5 }
+            }
+            translate <-19.4, 32, 5.02>
+        }
+        
+        sphere {
+            <-20.7,36.5,4.9>, 0.4
+            pigment {color Gray50}
+        } 
+        
+        sphere {
+            <-20.7,36.5,5.16>, 0.15
+            pigment {color Black}
+        } 
+    }    
+} 
+
+//перегородка
+union {
+    box {
+        <-13,10,-16>, <-14,50,5>
+        pigment {color Gray10}
+    }   
+    
+    union {
+        box {
+        <-14,10,4>, <-18,50,5>
+        pigment {color Gray10}
+        }
+        
+        box {
+        <-1.5,-0.8,0>, <2,-6,0.01>
+    
+        texture {
+            pigment {
+                image_map {
+                    png "textures/qr.png"
+                    interpolate 2
+                    once
+                }
+                scale <3.5,5.2,1>
+                translate <-1.5,-6,0>
+            }
+            finish { ambient 0.5 diffuse 0.5 }
+        }
+        translate <-16,30.5,5.01>
+        }
+        
+        sphere {
+            <-14.5,13.5,4.9>, 0.4
+            pigment {color Gray50}
+        }  
+                            
+        sphere {
+            <-14.5,13.5,5.17>, 0.15
+            pigment {color Black}
+        }
+        
+        cylinder { 
+            <-16,40,5>,<-16,40,5.03>, 2.7
+            texture {pigment {color Gray70}
+                finish {   
+                    reflection 0.23
+                }
+            }
+        }
+        
+        cylinder { 
+            <-16,33.9,5>,<-16,33.9,5.03>, 2.7 
+            texture {pigment {color Gray70}
+                finish {   
+                    reflection 0.23
+                }
+            }
+        }    
+    } 
+      
+    box {
+        <-18,10,-16>, <-19,50,5>
+        pigment {color Gray10}
+    }    
+}
+
+//кофеавтомат
+union {
+    box {
+        <-19.2,11,-16>,<-29.8,31.8,3.8>
+        texture {
+            pigment {
+                image_map {
+                    png "textures/coffee_machine_inside.png"
+                    interpolate 2
+                    once
+                }
+                scale <10.6, 20.8, 1>
+                scale <-1, 1, 1>
+                translate <-19.2, 11, 0>
+            }
+            finish { ambient 0.3 diffuse 0.7 }
+        }
+    } 
+    
+    box {
+        <-19.2,11.2,3.9>,<-29.8,31.8,5>
+        texture {
+            pigment {
+                image_map {
+                    png "textures/coffee_machine.png"
+                    interpolate 2
+                }
+                translate <19.2, -11.2, 0>
+                scale <10.6, 20.6, 1>
+            }
+            finish { ambient 0.3 diffuse 0.7 }
+        }
+        translate <29.8, 0, -3.9>   // Смещаем правый край к 0
+        rotate <0, -Open_Angle * clock, 0>  // Отрицательное вращение для открывания вправо
+        translate <-29.8, 0, 3.9>   // Возвращаем обратно  
+    }    
+}                   
+ 
+ 
+
+
+
+
+
